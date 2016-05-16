@@ -16,6 +16,20 @@ import {
 var REQUEST_URL = 'http://static.uji.es/js/prova.json';
 var _navigator;
 
+var SCREEN_WIDTH = require('Dimensions').get('window').width;
+var BaseConfig = Navigator.SceneConfigs.FloatFromRight;
+var CustomLeftToRightGesture = Object.assign({}, BaseConfig.gestures.pop, {
+  snapVelocity: 8,
+  edgeHitWidth: SCREEN_WIDTH
+});
+var CustomSceneConfig = Object.assign({}, BaseConfig, {
+  springTension: 100,
+  springFriction: 1,
+  gestures: {
+      pop: CustomLeftToRightGesture
+  }
+});
+
 class UjiAlerts extends Component {
   
   constructor(props) {
@@ -88,12 +102,17 @@ class UjiAlerts extends Component {
       <Navigator
         initialRoute={{name: 'first'}}
         renderScene={this.navigatorRenderScene.bind(this)}
+        configureScene={this.configureScene}
         navigationBar={
          <Navigator.NavigationBar 
          style={ styles.bar } 
          routeMapper={ NavigationBarRouteMapper } />
       }/>
     );
+  }
+
+  configureScene() {
+    return CustomSceneConfig;
   }
 
   navigatorRenderScene(route, navigator) {
@@ -174,7 +193,10 @@ var NavigationBarRouteMapper = {
         <TouchableHighlight
           underlayColor="transparent"
           onPress={() => { if (index > 0) { navigator.pop() } }}>
-          <Image source={require('./img/back-arrow.png')} style={ styles.leftNavButtonText } />
+          <View style={ styles.leftNavButtonView }>
+            <View style={ styles.leftNavButtonImg }><Image source={require('./img/back-arrow.png')} /></View>
+            <Text style={ styles.leftNavButtonText }>Back</Text>
+          </View>  
         </TouchableHighlight>)
     } 
     else { return null }
@@ -236,9 +258,20 @@ const styles = StyleSheet.create({
     right: 75,
     textAlign: 'center'
   },
+  leftNavButtonView: {
+    flex: 1, 
+    height: 40 
+  },
+  leftNavButtonImg: {
+    position: 'absolute', 
+    top: 4, 
+    bottom: 0, 
+    left: 0, 
+    right: 0
+  },
   leftNavButtonText: {
-    marginTop: 4,
-    marginLeft: 10
+    marginTop: 10,
+    marginLeft: 28  
   }
 });
 
