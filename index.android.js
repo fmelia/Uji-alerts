@@ -9,7 +9,8 @@ import {
   View,
   TouchableHighlight,
   BackAndroid,
-  Platform
+  Platform,
+  Image
 } from 'react-native';
 
 var REQUEST_URL = 'http://static.uji.es/js/prova.json';
@@ -173,7 +174,7 @@ var NavigationBarRouteMapper = {
         <TouchableHighlight
           underlayColor="transparent"
           onPress={() => { if (index > 0) { navigator.pop() } }}>
-          <Text style={ styles.leftNavButtonText }>Back</Text>
+          <Image source={require('./img/back-arrow.png')} style={ styles.leftNavButtonText } />
         </TouchableHighlight>)
     } 
     else { return null }
@@ -236,10 +237,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   leftNavButtonText: {
-    fontSize: 14,
-    marginTop: 10,
-    marginLeft: 10,
-    color: '#4169E1'
+    marginTop: 4,
+    marginLeft: 10
   }
 });
 
