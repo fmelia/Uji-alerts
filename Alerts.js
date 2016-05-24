@@ -8,7 +8,7 @@ import {
   Image
 } from 'react-native';
 
-const REQUEST_URL = 'http://static.uji.es/js/prova.json';
+const REQUEST_URL = url
 
 export default class Alerts extends Component {
   
