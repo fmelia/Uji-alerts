@@ -6,6 +6,6 @@ Ejemplo de usos de :
  - Listview (con secciones)
  - Navigator
  - TouchableHightLight
- - BackAndroid
+ - Menú
  
  
